@@ -10,7 +10,7 @@ import {
     Link
 } from "react-router-dom";
 import Home from "./Home";
- 
+import ResultsPage from "./ResultsPage/ResultsPage";
 
 function App() {
   return (
@@ -19,8 +19,13 @@ function App() {
               <Route exact path="/">
                   <Home />
               </Route>
+
               <Route exact path="/:surveyid">
                   <SurveyPage />
+              </Route>
+
+              <Route exact path="/results/:resultid">
+                  <ResultsPage />
               </Route>
           </Switch>
       </Router>
