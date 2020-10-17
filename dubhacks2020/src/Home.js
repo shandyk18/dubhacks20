@@ -6,4 +6,4 @@ function Home() {
     );
 }
 
-export default App;
+export default Home;

@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import SurveyPage from './surveyPage/SurveyPage';
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -8,6 +10,7 @@ import {
     Link
 } from "react-router-dom";
 import Home from "./Home";
+ 
 
 function App() {
   return (
