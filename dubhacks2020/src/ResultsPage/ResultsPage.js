@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TopBar from '../TopBar';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +25,7 @@ function ResultsPage() {
     const [course, setCourse] = useState();
     const [q1, setQ1] = useState([]);
     const [q2, setQ2] = useState([]);
+    const [comments, setComments] = useState([]);
 
     const data1 = [
         {
@@ -92,6 +92,19 @@ function ResultsPage() {
         .then(function (response) {
             setQ2([response.data['1'], response.data['2'], response.data['3'], response.data['4'], response.data['5']])
         })
+
+/*        axios.get(`http://localhost:5000/comments/${surveyId}`, {
+            params: {
+                surveyId: surveyId
+            }
+        })
+        .then(function (response) {
+            JSON.response.forEach(el => {
+                console.log(el);
+            });
+            //setComments([response.data])
+            //console.log(comments)
+        })*/
     }, []);
 
     return (
@@ -103,10 +116,57 @@ function ResultsPage() {
                         <Grid item md={4}>
                             <Typography variant='h3'>
                                 Filters
+                        </Typography>
+                            <br />
+                            <FormControl className={classes.formControl}>
+                                <Typography variant='h5'>
+                                    Department
                             </Typography>
-                            <br />
-
-                            <br />
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={department}
+                                    onChange={handleChangeDepartment}
+                                >
+                                    <MenuItem value={'Computer Science'}>Computer Science</MenuItem>
+                                    <MenuItem value={'International Studies'}>International Studies</MenuItem>
+                                </Select>
+                                <br />
+                                <Typography variant='h5'>
+                                    Instructor
+                            </Typography>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={instructor}
+                                    onChange={handleChangeInstructor}
+                                >
+                                    <MenuItem value={123}>Julia Kim</MenuItem>
+                                    <MenuItem value={456}>Jeremy Chen</MenuItem>
+                                    <MenuItem value={789}>Eric Yeh</MenuItem>
+                                    <MenuItem value={111}>Jonathan Chen</MenuItem>
+                                </Select>
+                                <br />
+                                <Typography variant='h5'>
+                                    Course
+                            </Typography>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={course}
+                                    onChange={handleChangeCourse}
+                                >
+                                    <MenuItem value={'CSE 461'}>CSE 461</MenuItem>
+                                    <MenuItem value={'CSE 451'}>CSE 451</MenuItem>
+                                </Select>
+                                <br />
+                                <Button
+                                    variant="contained"
+                                    onClick={() => { console.log('submitted'); }}
+                                >
+                                    Submit
+                            </Button>
+                            </FormControl>
                         </Grid>
                         <Grid item md={8}>
                             <Typography variant='h4'>
