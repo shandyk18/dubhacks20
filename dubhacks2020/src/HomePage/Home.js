@@ -16,14 +16,14 @@ export function Home() {
 
     async function onSubmit() {
         // Make API call here to check if surveyId is valid.
-        if (surveyId != "") {
+        if (surveyId) {
             const test = await axios.get(`http://localhost:5000/surveyId/${surveyId}`);
-            console.log(test);
-            if (true) {
-                history.push(`/${surveyId}`)
+            if (test.data) {
+                history.push(`/${surveyId}`);
+            } else {
+                setValidId(false);
             }
         }
-        
         
     }
 
