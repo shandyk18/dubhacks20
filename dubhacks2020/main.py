@@ -8,10 +8,10 @@ db = firestore.client()
 survey_ref = db.collection('surveyID')
 
 @app.route('/')
-def hello():
-	return "Hello world"
+def get_html():
+	return app.send_static_file('index.html')
 
-@app.route('/test')
+@app.route('/api/test')
 def test_get():
 	try:
 		survey = survey_ref.document("123").get()
