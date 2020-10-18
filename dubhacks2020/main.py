@@ -29,7 +29,7 @@ def getOne(surveyId):
 	docs = survey_ref.document(surveyId).collection('responses').stream()
 	for doc in docs:
 		res = doc.to_dict()
-		if (res["q1"]):
+		if (res["q1"] == 1):
 			result["yes"] += 1
 		else:
 			result["no"] += 1
@@ -47,7 +47,7 @@ def getTwo(surveyId):
 		"4" : 0,
 		"5" : 0
 	}
-	docs = survey_ref.document('123').collection('responses').stream()
+	docs = survey_ref.document(surveyId).collection('responses').stream()
 	for doc in docs:
 		res = doc.to_dict()
 		if (res["q2"] == 1):
