@@ -94,7 +94,7 @@ function ResultsPage() {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/getAnswer1/${surveyId}`, {
+        axios.get(`/getAnswer1/${surveyId}`, {
             params: {
                 surveyId: surveyId
             }
