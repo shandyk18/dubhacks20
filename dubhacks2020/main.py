@@ -23,14 +23,13 @@ def getOne():
 
 
 
-	for survey in survey_ref:
-		docs = survey_ref.document(surveyID).collection('responses').stream()
-		for doc in docs:
-			res = doc.to_dict()
-			if (res["q1"]):
-				result["yes"] += 1
-			else:
-				result["no"] += 1
+	docs = survey_ref.document(surveyID).collection('responses').stream()
+	for doc in docs:
+		res = doc.to_dict()
+		if (res["q1"]):
+			result["yes"] += 1
+		else:
+			result["no"] += 1
 	return jsonify(result), 200
 	# survey = survey_ref.document('123').collection('responses').document('n8xs9YiTtLxou9pdC3Li').get()
 	# return jsonify(survey.to_dict()), 200
