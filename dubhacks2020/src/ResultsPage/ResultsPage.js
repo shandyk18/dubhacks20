@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import TopBar from '../TopBar';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,69 +34,76 @@ function ResultsPage() {
     }
 
     return (
-        <Box m={10}>
-            <div className={classes.root}>
-                <Grid container spacing={4}>
-                    <Grid item xs>
-                        <Typography variant='h3'>
-                            Filters
+        <div>
+            <TopBar />
+            <Box m={10}>
+                <div className={classes.root}>
+                    <Grid container spacing={4}>
+                        <Grid item xs>
+                            <Typography variant='h3'>
+                                Filters
                         </Typography>
-                        <br />
-                        <FormControl className={classes.formControl}>
-                            <Typography variant='h5'>
-                                Department
-                            </Typography>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                autowidth
-                                value={department}
-                                onChange={handleChangeDepartment}
-                            >
-                                <MenuItem value={'Computer Science'}>Computer Science</MenuItem>
-                                <MenuItem value={'International Studies'}>International Studies</MenuItem>
-                            </Select>
                             <br />
-                            <Typography variant='h5'>
-                                Instructor
+                            <FormControl className={classes.formControl}>
+                                <Typography variant='h5'>
+                                    Department
                             </Typography>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={instructor}
-                                onChange={handleChangeInstructor}
-                            >
-                                <MenuItem value={123}>Julia Kim</MenuItem>
-                                <MenuItem value={456}>Jeremy Chen</MenuItem>
-                                <MenuItem value={789}>Eric Yeh</MenuItem>
-                                <MenuItem value={111}>Jonathan Chen</MenuItem>
-                            </Select>
-                            <br />
-                            <Typography variant='h5'>
-                                Course
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={department}
+                                    onChange={handleChangeDepartment}
+                                >
+                                    <MenuItem value={'Computer Science'}>Computer Science</MenuItem>
+                                    <MenuItem value={'International Studies'}>International Studies</MenuItem>
+                                </Select>
+                                <br />
+                                <Typography variant='h5'>
+                                    Instructor
                             </Typography>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={course}
-                                onChange={handleChangeCourse}
-                            >
-                                <MenuItem value={'CSE 461'}>CSE 461</MenuItem>
-                                <MenuItem value={'CSE 451'}>CSE 451</MenuItem>
-                            </Select>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={instructor}
+                                    onChange={handleChangeInstructor}
+                                >
+                                    <MenuItem value={123}>Julia Kim</MenuItem>
+                                    <MenuItem value={456}>Jeremy Chen</MenuItem>
+                                    <MenuItem value={789}>Eric Yeh</MenuItem>
+                                    <MenuItem value={111}>Jonathan Chen</MenuItem>
+                                </Select>
+                                <br />
+                                <Typography variant='h5'>
+                                    Course
+                            </Typography>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={course}
+                                    onChange={handleChangeCourse}
+                                >
+                                    <MenuItem value={'CSE 461'}>CSE 461</MenuItem>
+                                    <MenuItem value={'CSE 451'}>CSE 451</MenuItem>
+                                </Select>
+                                <br />
+                                <Button
+                                    variant="contained"
+                                    onClick={() => { console.log('submitted'); }}
+                                >
+                                    Submit
+                            </Button>
+                            </FormControl>
                             <br />
-                            <Button variant="contained">Submit</Button>
-                        </FormControl>
-                        <br />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Typography variant='h5'>
-                            see pretty charts here
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Typography variant='h5'>
+                                see pretty charts here
                         </Typography>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </div>
-        </Box>
+                </div>
+            </Box>
+        </div>
     );
 }
 
