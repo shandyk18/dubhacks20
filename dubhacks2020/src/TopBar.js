@@ -17,22 +17,6 @@ const divStyle = {
 
 
 export function Top() {
-    const [surveyId, setSurveyId] = useState("");
-    const [validId, setValidId] = useState(true);
-    const history = useHistory();
-
-
-    async function toResults() {
-        if (surveyId) {
-            const surveyExists = await axios.get(`/surveyId/${surveyId}`);
-            if (surveyExists.data) {
-                history.push(`/results/${surveyId}`);
-            } else {
-                setValidId(false);
-            }
-        }
-    }
-
     return (
         <div style={divStyle}>
             <Box ml={2}>
@@ -40,17 +24,6 @@ export function Top() {
                     inclusivity indicator
             </Typography>
             </Box>
-            <TextField
-                id="survey-id-input"
-                label="Survey Id"
-                type="surveyId"
-                variant="outlined"
-                value={surveyId}
-                onChange={event => setSurveyId(event.target.value)}>
-            </TextField>
-            <Button className="submit-button" variant="contained" color="primary" onClick={toResults}>
-                TORES
-        </Button>
         </div>
     );
 
