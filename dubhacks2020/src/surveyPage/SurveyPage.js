@@ -58,8 +58,7 @@ class SurveyPage extends React.Component {
         }, (error) => {
             console.log(error);
         });
-        const history = useHistory();
-        history.push("/");
+        alert("submitted");
     }
 
     render() {
