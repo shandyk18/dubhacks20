@@ -19,10 +19,10 @@ def test_get():
 	except Exception as e:
 		return f"An Error Occured: {e}"
 
-@app.route('/add-response')
+@app.route('/add-response', methods=["POST"])
 def add_response():
-	print("WOO!")
-	# data = request.json
+	data = request.data
+	print(data)
 	return "WOW!"
 
 # @app.route('/')
