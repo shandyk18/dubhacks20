@@ -66,7 +66,7 @@ class SurveyPage extends React.Component {
                 <Top />
                 <Box paddingTop="15px" paddingLeft="15px">
                     <Box fontWeight="fontWeightBold" fontSize={40}>
-                        Title FirstName LastName
+                        {this.state.surveyId}
                    </Box>
                     <Box fontSize={30}>
                         {this.state.currentDate}
@@ -94,7 +94,7 @@ class SurveyPage extends React.Component {
                     <Box component="fieldset" mb={3} borderColor="transparent">
                         <Rating
                             name="customized-10"
-                            defaultValue={2}
+                            defaultValue={0}
                             max={5}
                             size="large"
                             onChange={this.handleChange2} />
