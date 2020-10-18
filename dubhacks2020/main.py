@@ -25,16 +25,28 @@ def getOne(surveyId):
 		"yes": 0,
 		"no": 0
 	}
-
-	print(surveyId);
-
-	docs = survey_ref.document(surveyId).collection('responses').stream()
-	for doc in docs:
-		res = doc.to_dict()
-		if (res["q1"] == 1):
-			result["yes"] += 1
-		else:
-			result["no"] += 1
+	print("1")
+	print(request)
+	print("2")
+	if request.json == None or request.json["filter"] == None:
+		docs = survey_ref.document(surveyId).collection('responses').stream()
+		for doc in docs:
+			res = doc.to_dict()
+			if (res["q1"] == 1):
+				result["yes"] += 1
+			else:
+				result["no"] += 1
+		return jsonify(result), 200
+	else:
+		filter = survey_ref.where(request.json['filter'], '==', request.json['value'])
+		for surveyDoc in filter.stream():
+			res = surveyDoc.id
+			for doc in survey_ref.document(res).collection('responses').stream():
+				d = doc.to_dict()
+				if (d["q1"] == 1):
+					result["yes"] += 1
+				else:
+					result["no"] += 1
 	return jsonify(result), 200
 	# survey = survey_ref.document('123').collection('responses').document('n8xs9YiTtLxou9pdC3Li').get()
 	# return jsonify(survey.to_dict()), 200
@@ -50,21 +62,42 @@ def getTwo(surveyId):
 		"4" : 0,
 		"5" : 0
 	}
-	docs = survey_ref.document(surveyId).collection('responses').stream()
-	for doc in docs:
-		res = doc.to_dict()
-		if (res["q2"] == "0"):
-			result["0"] += 1
-		elif (res["q2"] == "1"):
-			result["1"] += 1
-		elif (res["q2"] == "2"):
-			result["2"] += 1
-		elif (res["q2"] == "3"):
-			result["3"] += 1
-		elif (res["q2"] == "4"):
-			result["4"] += 1
-		else:
-			result["5"] += 1
+
+	if request.json == None or request.json["filter"] == None:
+		docs = survey_ref.document(surveyId).collection('responses').stream()
+		for doc in docs:
+			res = doc.to_dict()
+			if (res["q2"] == "0"):
+				result["0"] += 1
+			elif (res["q2"] == "1"):
+				result["1"] += 1
+			elif (res["q2"] == "2"):
+				result["2"] += 1
+			elif (res["q2"] == "3"):
+				result["3"] += 1
+			elif (res["q2"] == "4"):
+				result["4"] += 1
+			else:
+				result["5"] += 1
+		return jsonify(result), 200
+	else:
+		filter = survey_ref.where(request.json['filter'], '==', request.json['value'])
+		for surveyDoc in filter.stream():
+			res = surveyDoc.id
+			for doc in survey_ref.document(res).collection('responses').stream():
+				d = doc.to_dict()
+				if (d["q2"] == "0"):
+					result["0"] += 1
+				elif (d["q2"] == "1"):
+					result["1"] += 1
+				elif (d["q2"] == "2"):
+					result["2"] += 1
+				elif (d["q2"] == "3"):
+					result["3"] += 1
+				elif (d["q2"] == "4"):
+					result["4"] += 1
+				else:
+					result["5"] += 1
 		
 	return jsonify(result), 200
 
@@ -73,11 +106,21 @@ def getTwo(surveyId):
 def get_comments(surveyId):
 	result = {}
 	index = 0
-	docs = survey_ref.document(surveyId).collection('responses').stream()
-	for doc in docs:
-		actual_document = doc.to_dict()
-		result[index] = actual_document['comments']
-		index += 1
+	if request.json == None or request.json["filter"] == None:
+		docs = survey_ref.document(surveyId).collection('responses').stream()
+		for doc in docs:
+			actual_document = doc.to_dict()
+			result[index] = actual_document['comments']
+			index += 1
+		return jsonify(result), 200
+	else:
+		filter = survey_ref.where(request.json['filter'], '==', request.json['value'])
+		for surveyDoc in filter.stream():
+			res = surveyDoc.id
+			for doc in survey_ref.document(res).collection('responses').stream():
+				actual_document = doc.to_dict()
+				result[index] = actual_document['comments']
+				index += 1
 	return jsonify(result), 200
 
 
