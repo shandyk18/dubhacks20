@@ -57,6 +57,7 @@ class SurveyPage extends React.Component {
         }, (error) => {
             console.log(error);
         });
+        alert("response received!");
     }
 
     render() {
