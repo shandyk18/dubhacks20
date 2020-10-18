@@ -21,7 +21,7 @@ export function Top() {
         <div style={divStyle}>
             <Box ml={2}>
                 <Typography variant='h6'>
-                    inclusivity indicator
+                    inclusurveity
             </Typography>
             </Box>
         </div>
