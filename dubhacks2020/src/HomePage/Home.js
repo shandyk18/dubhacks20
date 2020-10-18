@@ -5,29 +5,30 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import TopBar from '../TopBar';
 import { useHistory } from 'react-router-dom';
-import { red } from '@material-ui/core/colors';
-
+import axios from "axios";
 
 
 export function Home() {
     const [surveyId, setSurveyId] = useState("");
-    const [invalidId, setInvalidId] = useState(false);
+    const [validId, setValidId] = useState(true);
     const history = useHistory();
 
 
-    function onSubmit() {
+    async function onSubmit() {
         // Make API call here to check if surveyId is valid.
         if (surveyId != "") {
-            setInvalidId(true);
+            // const test = await axios.get(`localhost:5000/surveyId/${surveyId}`);
+            
+            if (true) {
+                history.push(`/${surveyId}`)
+            }
         }
         
-        if (!invalidId) {
-            history.push(`/${surveyId}`)
-        }
+        
     }
 
     function invalidIdPrompt() {
-        if (invalidId) {
+        if (!validId) {
             return (
                 <b style={{color: "red", marginTop: 20}}>Invalid survey id.</b>
             )
