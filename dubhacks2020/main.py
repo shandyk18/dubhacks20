@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from firebase_admin import credentials, firestore, initialize_app
 import json
+import uuid
 
 app = Flask(__name__, static_folder='./build', static_url_path='/')
 cred = credentials.Certificate("firebasekey.json")
@@ -79,7 +80,7 @@ def add_response():
 		q2 = request.json["q2"]
 		comment = request.json["comment"]
 
-		if (not q1 or not q2 or not surveyID):
+		if (q1 == None or not q2 or not surveyID):
 			return {"error": "one or more attributes missing"}
 
 		response = {
@@ -87,8 +88,8 @@ def add_response():
 			"q2": q2,
 			"comment": comment,
 		}
-		id = survey_ref.document(surveyID).collection('reponses').document().getId()
-		response_ref = survey_ref.document(surveyID).collection('reponses').document(id).set(response)
+		did = str(uuid.uuid4())
+		response_ref = survey_ref.document(surveyID).collection('responses').document(did).set(response)
 		return jsonify({"success": True}), 200
 	except Exception as e:
 		return f"An Error Occured: {e}"
