@@ -21,8 +21,6 @@ def get_html():
 @app.route('/getAnswer1/<surveyId>')
 @cross_origin()
 def getOne(surveyId):
-	# surveyId = request.json["surveyId"]
-
 	result = {
 		"yes": 0,
 		"no": 0
@@ -42,7 +40,6 @@ def getOne(surveyId):
 @app.route('/getAnswer2/<surveyId>')
 @cross_origin()
 def getTwo(surveyId):
-	surveyId = request.json["surveyId"]
 	result = {
 		"1" : 0,
 		"2" : 0,
@@ -69,7 +66,6 @@ def getTwo(surveyId):
 @app.route('/comments/<surveyId>')
 @cross_origin()
 def get_comments(surveyId):
-	# surveyId = request.json["surveyId"]
 	result = {}
 	index = 0
 	docs = survey_ref.document(surveyId).collection('responses').stream()
@@ -96,15 +92,15 @@ def add_response():
 		surveyId = request.json["surveyId"]
 		q1 = request.json["q1"]
 		q2 = request.json["q2"]
-		comment = request.json["comment"]
+		comments = request.json["comments"]
 
-		if (q1 == None or q2 == None or surveyID == None):
+		if (q1 == None or q2 == None or surveyId == None):
 			return {"error": "one or more attributes missing"}
 
 		response = {
 			"q1": q1,
 			"q2": q2,
-			"comment": comment,
+			"comments": comments,
 		}
 		did = str(uuid.uuid4())
 		response_ref = survey_ref.document(surveyId).collection('responses').document(did).set(response)
