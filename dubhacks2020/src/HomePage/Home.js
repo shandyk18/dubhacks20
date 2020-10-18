@@ -16,9 +16,9 @@ export function Home() {
 
     async function onSubmit() {
         // Make API call here to check if surveyId is valid.
-        if (surveyId !== "") {
-            // const test = await axios.get(`localhost:5000/surveyId/${surveyId}`);
-            
+        if (surveyId != "") {
+            const test = await axios.get(`http://localhost:5000/surveyId/${surveyId}`);
+            console.log(test);
             if (true) {
                 history.push(`/${surveyId}`)
             }
