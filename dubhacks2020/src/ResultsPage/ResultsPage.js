@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TopBar from '../TopBar';
 import axios from 'axios';
-import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { Pie, PieChart, BarChart, Bar, Cell, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,6 +29,23 @@ function ResultsPage() {
     const [q1, setQ1] = useState([]);
     const [q2, setQ2] = useState([]);
     const [comments, setComments] = useState([]);
+    const COLORS = ['#f55656', '#00C49F'];
+
+    const RADIAN = Math.PI / 180;
+    const renderCustomizedLabel = ({
+        cx, cy, midAngle, innerRadius, outerRadius, percent, index,
+    }) => {
+        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+        return (
+            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+                {`${(percent * 100).toFixed(0)}%`}
+            </text>
+        );
+    };
+
 
     const data1 = [
         {
@@ -77,7 +94,7 @@ function ResultsPage() {
     }
 
     useEffect(() => {
-        axios.get(`/getAnswer1/${surveyId}`, {
+        axios.get(`http://localhost:5000/getAnswer1/${surveyId}`, {
             params: {
                 surveyId: surveyId
             }
@@ -169,17 +186,25 @@ function ResultsPage() {
                         </Grid>
                         <Grid item md={8}>
                             <Typography variant='h4'>
-                                Discrimination or Uncomfortable in Class
+                                Feelings of Discrimination or Uncomfortableness
                             </Typography>
-                            <br />
-                            <BarChart width={730} height={250} data={data1}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
+                            <PieChart width={730} height={250}>
                                 <Tooltip />
                                 <Legend />
-                                <Bar dataKey="response" fill="#82ca9d" />
-                            </BarChart>
+                                <Pie
+                                    data={data1}
+                                    labelLine={false}
+                                    label={renderCustomizedLabel}
+                                    outerRadius={80}
+                                    fill="#8884d8"
+                                    dataKey="response"
+                                >
+                                    {
+                                        data1.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                                    }
+                                </Pie>
+                            </PieChart>
+                            <br />
                             <Typography variant='h4'>
                                 Overall Feelings of Class's Inclusivity Policies
                             </Typography>
@@ -192,6 +217,7 @@ function ResultsPage() {
                                 <Legend />
                                 <Bar dataKey="inclusivity rating" fill="#82ca9d" />
                             </BarChart>
+                            <br />
                             <Typography variant='h4'>
                                 Top Comments
                             </Typography>
