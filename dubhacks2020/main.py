@@ -18,18 +18,17 @@ survey_ref = db.collection('surveyID')
 def get_html():
 	return app.send_static_file('index.html')
 
-@app.route('/getAnswer1')
+@app.route('/getAnswer1/<surveyId>')
 @cross_origin()
-def getOne():
-	surveyID = request.json["surveyID"]
+def getOne(surveyId):
+	# surveyId = request.json["surveyId"]
+
 	result = {
 		"yes": 0,
 		"no": 0
 	}
 
-
-
-	docs = survey_ref.document(surveyID).collection('responses').stream()
+	docs = survey_ref.document(surveyId).collection('responses').stream()
 	for doc in docs:
 		res = doc.to_dict()
 		if (res["q1"]):
@@ -40,9 +39,10 @@ def getOne():
 	# survey = survey_ref.document('123').collection('responses').document('n8xs9YiTtLxou9pdC3Li').get()
 	# return jsonify(survey.to_dict()), 200
 
-@app.route('/getAnswer2')
+@app.route('/getAnswer2/<surveyId>')
 @cross_origin()
-def getTwo():
+def getTwo(surveyId):
+	surveyId = request.json["surveyId"]
 	result = {
 		"1" : 0,
 		"2" : 0,
@@ -51,19 +51,20 @@ def getTwo():
 		"5" : 0
 	}
 
-	docs = survey_ref.document('123').collection('responses').stream()
+	docs = survey_ref.document(surveyId).collection('responses').stream()
 	
 	for doc in docs:
 		res = doc.to_dict()
-		
+
 	return jsonify(result), 200
 
-@app.route('/comments')
+@app.route('/comments/<surveyId>')
 @cross_origin()
-def get_comments():
+def get_comments(surveyId):
+	# surveyId = request.json["surveyId"]
 	result = {}
 	index = 0
-	docs = survey_ref.document('123').collection('responses').stream()
+	docs = survey_ref.document(surveyId).collection('responses').stream()
 	for doc in docs:
 		actual_document = doc.to_dict()
 		result[index] = actual_document['comments']
@@ -84,12 +85,12 @@ def test_get():
 @cross_origin()
 def add_response():
 	try:
-		surveyID = request.json["surveyID"]
+		surveyId = request.json["surveyId"]
 		q1 = request.json["q1"]
 		q2 = request.json["q2"]
 		comment = request.json["comment"]
 
-		if (q1 == None or not q2 or not surveyID):
+		if (q1 == None or not q2 or not surveyId):
 			return {"error": "one or more attributes missing"}
 
 		response = {
@@ -98,7 +99,7 @@ def add_response():
 			"comment": comment,
 		}
 		did = str(uuid.uuid4())
-		response_ref = survey_ref.document(surveyID).collection('responses').document(did).set(response)
+		response_ref = survey_ref.document(surveyId).collection('responses').document(did).set(response)
 		return jsonify({"success": True}), 200
 	except Exception as e:
 		return f"An Error Occured: {e}"

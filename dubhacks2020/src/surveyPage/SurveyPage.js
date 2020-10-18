@@ -26,7 +26,7 @@ class SurveyPage extends React.Component {
             currentDate: date,
             answer1: "",
             answer2: 0,
-            serverId: final
+            surveyId: final
         }
     }
 
@@ -44,10 +44,10 @@ class SurveyPage extends React.Component {
 
     send = () => {
         const data = {
-            surveyID: this.state.serverId,
+            surveyId: this.state.surveyId,
             q1: this.state.answer1,
             q2: this.state.answer2,
-            comment: this.state.comments
+            comments: this.state.comments
         }
         axios.post('http://localhost:5000/add-response',
             data,
