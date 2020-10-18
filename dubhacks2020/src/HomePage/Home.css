@@ -1,0 +1,18 @@
+.enter-survey-box {
+    background-color: #7CD7D1;
+    padding: 10px 20px 30px 20px;
+    border-radius: 10px;
+}
+
+.centered-box {
+    margin-top: 25vh;
+}
+
+#survey-id-input {
+    width: 500px;
+    background-color: white;
+}
+
+button {
+    width: 300px;
+}
