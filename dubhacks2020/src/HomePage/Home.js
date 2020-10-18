@@ -1,15 +1,38 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import './Home.css';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import TopBar from '../TopBar';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { red } from '@material-ui/core/colors';
 
 
 
 export function Home() {
     const [surveyId, setSurveyId] = useState("");
+    const [invalidId, setInvalidId] = useState(false);
+    const history = useHistory();
+
+
+    function onSubmit() {
+        // Make API call here to check if surveyId is valid.
+        if (surveyId != "") {
+            setInvalidId(true);
+        }
+        
+        if (!invalidId) {
+            history.push(`/${surveyId}`)
+        }
+    }
+
+    function invalidIdPrompt() {
+        if (invalidId) {
+            return (
+                <b style={{color: "red", marginTop: 20}}>Invalid survey id.</b>
+            )
+        }
+    }
 
     return (
         <div className="Home">
@@ -26,11 +49,10 @@ export function Home() {
                         value={surveyId}
                         onChange={event => setSurveyId(event.target.value)}>
                     </TextField>
-                    <Link to={`${surveyId}`} style={{width: "100%"}}>
-                        <Button className="submit-button" variant="contained" color="primary">
-                            Join
-                        </Button>
-                    </Link>
+                    {invalidIdPrompt()}
+                    <Button className="submit-button" variant="contained" color="primary" onClick={onSubmit}>
+                        Join
+                    </Button>
                 </Grid>
                 <Grid container item xs={5} />
             </Grid>
