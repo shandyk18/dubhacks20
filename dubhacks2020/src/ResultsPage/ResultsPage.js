@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -8,6 +8,8 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TopBar from '../TopBar';
+import axios from 'axios';
+import { useParams, useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,9 +19,11 @@ const useStyles = makeStyles((theme) => ({
 
 function ResultsPage() {
     const classes = useStyles();
+    const {surveyId} = useParams();
     const [department, setDepartment] = useState();
     const [instructor, setInstructor] = useState();
     const [course, setCourse] = useState();
+    const [q1, setQ1] = useState();
 
     const handleChangeDepartment = (event) => {
         setDepartment(event.target.value);
@@ -32,6 +36,19 @@ function ResultsPage() {
     const handleChangeCourse = (event) => {
         setCourse(event.target.value);
     }
+
+    useEffect({
+        setSurveyId();
+    }, []);
+
+    axios.get('/getAnswer1', {
+        params: {
+            ID: surveyId
+        }
+    })
+    .then(function (response) {
+        console.log(response);
+    })
 
     return (
         <div>
@@ -97,8 +114,8 @@ function ResultsPage() {
                         </Grid>
                         <Grid item xs={8}>
                             <Typography variant='h5'>
-                                see pretty charts here
-                        </Typography>
+                                {q1}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </div>

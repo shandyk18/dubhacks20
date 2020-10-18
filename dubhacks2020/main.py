@@ -79,7 +79,7 @@ def add_response():
 		q2 = request.json["q2"]
 		comment = request.json["comment"]
 
-		if (q1 == None or not q2 or not surveyID):
+		if (q1 == None or q2 == None or surveyID == None):
 			return {"error": "one or more attributes missing"}
 
 		response = {
