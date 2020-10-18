@@ -5,8 +5,7 @@
 }
 
 .centered-box {
-    margin-top: 25vh;
-    text-align: center;
+    margin-top: 15vh;
 }
 
 #survey-id-input {
@@ -16,5 +15,14 @@
 
 .submit-button {
     margin-top: 20px !important;
-    width: 300px;
+    width: 100%;
+}
+
+.recent-survey {
+    justify-content: left !important;
+    text-align: left !important;
+    font-size: 12px !important;
+    width: 100%;
+    height: 45px;
+    margin-bottom: 20px !important;
 }

@@ -26,6 +26,28 @@ class Home extends Component {
                     </Grid>
                     <Grid container item xs={5} />
                 </Grid>
+                <Grid container alignItems="center" justify="center" >
+                    <Grid container item xs={5} />
+                    <Grid className="recent-surveys" container item xs={2} >
+                        <h3>Recent surveys</h3>
+                        <Button className="recent-survey" variant="contained">
+                            <b>inclusurvey.com/</b><p>&nbsp;&nbsp;ericyeh</p>
+                        </Button>
+                        <Button className="recent-survey" variant="contained">
+                            <b>inclusurvey.com/</b><p>&nbsp;&nbsp;juliak</p>
+                        </Button>
+                        <Button className="recent-survey" variant="contained">
+                            <b>inclusurvey.com/</b><p>&nbsp;&nbsp;jeremychen</p>
+                        </Button>
+                        <Button className="recent-survey" variant="contained">
+                            <b>inclusurvey.com/</b><p>&nbsp;&nbsp;jonachen</p>
+                        </Button>
+                        <Button className="recent-survey" variant="contained">
+                            <b>inclusurvey.com/</b><p>&nbsp;&nbsp;shandyk</p>
+                        </Button>
+                    </Grid>
+                    <Grid container item xs={5} />
+                </Grid>
             </div>
         );
     }
