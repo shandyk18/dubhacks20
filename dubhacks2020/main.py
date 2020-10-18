@@ -50,13 +50,13 @@ def getTwo(surveyId):
 	docs = survey_ref.document(surveyId).collection('responses').stream()
 	for doc in docs:
 		res = doc.to_dict()
-		if (res["q2"] == 1):
+		if (res["q2"] == "1"):
 			result["1"] += 1
-		elif (res["q2"] == 2):
+		elif (res["q2"] == "2"):
 			result["2"] += 1
-		elif (res["q2"] == 3):
+		elif (res["q2"] == "3"):
 			result["3"] += 1
-		elif (res["q2"] == 4):
+		elif (res["q2"] == "4"):
 			result["4"] += 1
 		else:
 			result["5"] += 1
