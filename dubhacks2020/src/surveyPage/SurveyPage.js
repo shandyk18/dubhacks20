@@ -58,12 +58,7 @@ class SurveyPage extends React.Component {
         }, (error) => {
             console.log(error);
         });
-<<<<<<< Updated upstream
         alert("submitted");
-=======
-        const history = useHistory();
-        history.push("/");
->>>>>>> Stashed changes
     }
 
     render() {
