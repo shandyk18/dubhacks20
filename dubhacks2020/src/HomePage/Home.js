@@ -39,6 +39,17 @@ export function Home() {
         
     }
 
+	async function toRes() {
+		if (surveyId) {
+			const surveyExists = await axios.get(`/surveyId/${surveyId}`);
+			if (surveyExists.data) {
+				history.push(`/results/${surveyId}`);
+			} else {
+				setValidId(false);
+			}
+		}
+	}
+
     function invalidIdPrompt() {
         if (!validId) {
             return (
@@ -65,7 +76,10 @@ export function Home() {
                     {invalidIdPrompt()}
                     <Button className="submit-button" variant="contained" color="primary" onClick={onSubmit}>
                         Join
-                    </Button>
+					</Button>
+                    <Button className="submit-button" variant="contained" color="primary" onClick={toRes}>
+						TORES
+					</Button>
                 </Grid>
                 <Grid container item xs={5} />
             </Grid>
