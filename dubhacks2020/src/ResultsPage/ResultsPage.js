@@ -104,7 +104,7 @@ function ResultsPage() {
             console.log(surveyId)
         })
 
-        axios.get(`getAnswer2/${surveyId}`, {
+        axios.get(`/getAnswer2/${surveyId}`, {
             params: {
                 surveyId: surveyId
             }
