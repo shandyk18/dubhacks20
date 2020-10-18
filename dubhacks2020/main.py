@@ -108,10 +108,7 @@ def add_response():
 def does_survey_id_exist(surveyId):
 	try:
 		survey = survey_ref.document(surveyId).get()
-		if (survey.exists):
-			return "SURVEY EXISTS"
-		else:
-			return "SURVEY DOESN'T EXIST"
+		return json.dumps(survey.exists)
 	except Exception as e:
 		return f"An Error Occured: {e}"
 

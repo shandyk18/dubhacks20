@@ -18,12 +18,13 @@ export function Home() {
         // Make API call here to check if surveyId is valid.
         if (surveyId != "") {
             const test = await axios.get(`http://localhost:5000/surveyId/${surveyId}`);
-            console.log(test);
-            if (true) {
+            if (test.data) {
+                setValidId(true)
                 history.push(`/${surveyId}`)
+            } else {
+                setValidId(false)
             }
         }
-        
         
     }
 
