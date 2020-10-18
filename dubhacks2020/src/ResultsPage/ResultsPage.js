@@ -3,6 +3,8 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
@@ -85,7 +87,7 @@ function ResultsPage() {
             console.log(surveyId)
         })
 
-        axios.get(`http://localhost:5000/getAnswer2/${surveyId}`, {
+        axios.get(`getAnswer2/${surveyId}`, {
             params: {
                 surveyId: surveyId
             }
@@ -94,13 +96,13 @@ function ResultsPage() {
             setQ2([response.data['1'], response.data['2'], response.data['3'], response.data['4'], response.data['5']])
         })
 
-        axios.get(`/getAnswer2/${surveyId}`, {
+        axios.get(`/comments/${surveyId}`, {
             params: {
                 surveyId: surveyId
             }
         })
         .then(function (response) {
-            setQ2([response.data['1'], response.data['2'], response.data['3'], response.data['4'], response.data['5']])
+            setComments([response.data['0'], response.data['1'], response.data['2'], response.data['3'], response.data['4']])
         })
     }, []);
 
@@ -118,7 +120,7 @@ function ResultsPage() {
                             <FormControl className={classes.formControl}>
                                 <Typography variant='h5'>
                                     Department
-                            </Typography>
+                                </Typography>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -131,7 +133,7 @@ function ResultsPage() {
                                 <br />
                                 <Typography variant='h5'>
                                     Instructor
-                            </Typography>
+                                </Typography>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -146,7 +148,7 @@ function ResultsPage() {
                                 <br />
                                 <Typography variant='h5'>
                                     Course
-                            </Typography>
+                                </Typography>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -162,7 +164,7 @@ function ResultsPage() {
                                     onClick={() => { console.log('submitted'); }}
                                 >
                                     Submit
-                            </Button>
+                                </Button>
                             </FormControl>
                         </Grid>
                         <Grid item md={8}>
@@ -190,6 +192,36 @@ function ResultsPage() {
                                 <Legend />
                                 <Bar dataKey="inclusivity rating" fill="#82ca9d" />
                             </BarChart>
+                            <Typography variant='h4'>
+                                Top Comments
+                            </Typography>
+                            <List>
+                                <ListItem>
+                                    <Typography variant='body1'>
+                                        {comments[0]}
+                                    </Typography>
+                                </ListItem>
+                                <ListItem>
+                                    <Typography variant='body1'>
+                                        {comments[1]}
+                                    </Typography>
+                                </ListItem>
+                                <ListItem>
+                                    <Typography variant='body1'>
+                                        {comments[2]}
+                                    </Typography>
+                                </ListItem>
+                                <ListItem>
+                                    <Typography variant='body1'>
+                                        {comments[3]}
+                                    </Typography>
+                                </ListItem>
+                                <ListItem>
+                                    <Typography variant='body1'>
+                                        {comments[4]}
+                                    </Typography>
+                                </ListItem>
+                            </List>
                         </Grid>
                     </Grid>
                 </div>
