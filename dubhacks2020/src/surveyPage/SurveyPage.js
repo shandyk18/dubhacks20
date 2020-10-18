@@ -9,9 +9,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Top from '../TopBar';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 
-class SurveyPage extends React.Component {
+class SurveyPage extends React.Component {    
     constructor(props) {
         super(props);
         var today = new Date();
@@ -57,7 +58,8 @@ class SurveyPage extends React.Component {
         }, (error) => {
             console.log(error);
         });
-        alert("response received!");
+        const history = useHistory();
+        history.push("/");
     }
 
     render() {

@@ -43,6 +43,7 @@ def getOne(surveyId):
 @cross_origin()
 def getTwo(surveyId):
 	result = {
+		"0" : 0,
 		"1" : 0,
 		"2" : 0,
 		"3" : 0,
@@ -52,7 +53,9 @@ def getTwo(surveyId):
 	docs = survey_ref.document(surveyId).collection('responses').stream()
 	for doc in docs:
 		res = doc.to_dict()
-		if (res["q2"] == "1"):
+		if (res["q2"] == "0"):
+			result["0"] += 1
+		elif (res["q2"] == "1"):
 			result["1"] += 1
 		elif (res["q2"] == "2"):
 			result["2"] += 1

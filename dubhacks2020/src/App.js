@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import SurveyPage from './surveyPage/SurveyPage';
 import Home from "./HomePage/Home";
@@ -9,7 +8,6 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
 } from "react-router-dom";
 
 

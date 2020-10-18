@@ -13,7 +13,7 @@ export function Home() {
     const [validId, setValidId] = useState(true);
     const history = useHistory();
 
-    const recentSurveys = ["ericyeh", "juliak", "jeremychen", "jonachen", "shandyk"];
+    const recentSurveys = ["cse143_au20", "cse344_au20", "cse461_au20", "cse351_sp20", "shandyk"];
 
     function renderRecentSurveys() {
         var list = [];
@@ -28,7 +28,6 @@ export function Home() {
     }
     
     async function onSubmit() {
-        // Make API call here to check if surveyId is valid.
         if (surveyId) {
             const surveyExists = await axios.get(`http://localhost:5000/surveyId/${surveyId}`);
             if (surveyExists.data) {
