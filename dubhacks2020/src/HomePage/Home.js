@@ -29,7 +29,7 @@ export function Home() {
     
     async function onSubmit() {
         if (surveyId) {
-            const surveyExists = await axios.get(`http://localhost:5000/surveyId/${surveyId}`);
+            const surveyExists = await axios.get(`/surveyId/${surveyId}`);
             if (surveyExists.data) {
                 history.push(`/${surveyId}`);
             } else {
