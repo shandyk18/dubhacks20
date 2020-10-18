@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from firebase_admin import credentials, firestore, initialize_app
 
 app = Flask(__name__, static_folder='./build', static_url_path='/')
@@ -12,12 +12,20 @@ def hello():
 	return "Hello world"
 
 @app.route('/test')
-def test_get():
+def test_get(): 
 	try:
 		survey = survey_ref.document("123").get()
 		return jsonify(survey.to_dict()), 200
 	except Exception as e:
 		return f"An Error Occured: {e}"
+
+@app.route('/add-response')
+def add_response():
+	print("WOO!")
+	# data = request.json
+	return "WOW!"
+
+# @app.route('/')
 
 if __name__ == '__main__':
 	app.run()
