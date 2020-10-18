@@ -2,13 +2,13 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Rating from '@material-ui/lab/Rating';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Top from '../TopBar';
+import axios from 'axios';
 
 
 class SurveyPage extends React.Component {
@@ -19,11 +19,14 @@ class SurveyPage extends React.Component {
         var monthName = monthNames[today.getMonth()];
         var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
         var date = dayNames[today.getDay()] + ' ' + monthName + ' ' + today.getDate() + ', ' + today.getFullYear();
+        var url = window.location.href;
+        var final = url.substr(url.lastIndexOf('/') + 1);
         this.state = {
             comments: "",
             currentDate: date,
             answer1: "",
-            answer2: 0
+            answer2: 0,
+            serverId: final
         }
     }
 
@@ -38,6 +41,24 @@ class SurveyPage extends React.Component {
     handleCommentChange = (event) => {
         this.setState({ comments: event.target.value })
     };
+
+    send = () => {
+        const data = {
+            surveyID: this.state.serverId,
+            q1: this.state.answer1,
+            q2: this.state.answer2,
+            comment: this.state.comments
+        }
+        console.log("hello");
+        axios.post('http://localhost:5000/add-response',
+            data,
+            { headers: { 'Content-Type': 'application/json' } }
+        ).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+    }
 
     render() {
         return (
@@ -95,9 +116,9 @@ class SurveyPage extends React.Component {
                 </Box>
                 <Box paddingLeft="15px" paddingTop="15px">
                     <Button
-                        style={{backgroundColor:"#7CD7D1"}}
+                        style={{ backgroundColor: "#7CD7D1" }}
                         variant="outlined"
-                        onClick={() => { console.log(this.state.answer1 + " " + this.state.answer2 + " " + this.state.comments) }}
+                        onClick={() => { this.send() }}
                     >
                         Submit
                 </Button>
