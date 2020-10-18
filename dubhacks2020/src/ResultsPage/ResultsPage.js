@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
 
 function ResultsPage() {
     const classes = useStyles();
-    var url = window.location.href;    var surveyId = url.substr(url.lastIndexOf('/') + 1);
+    var url = window.location.href;
+    var surveyId = url.substr(url.lastIndexOf('/') + 1);
     const [department, setDepartment] = useState();
     const [instructor, setInstructor] = useState();
     const [course, setCourse] = useState();
@@ -74,7 +75,7 @@ function ResultsPage() {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/getAnswer1/${surveyId}`, {
+        axios.get(`/getAnswer1/${surveyId}`, {
             params: {
                 surveyId: surveyId
             }
@@ -84,7 +85,7 @@ function ResultsPage() {
             console.log(surveyId)
         })
 
-        axios.get(`http://localhost:5000/getAnswer2/${surveyId}`, {
+        axios.get(`/getAnswer2/${surveyId}`, {
             params: {
                 surveyId: surveyId
             }
