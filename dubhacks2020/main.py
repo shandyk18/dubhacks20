@@ -11,6 +11,10 @@ survey_ref = db.collection('surveyID')
 def get_html():
 	return app.send_static_file('index.html')
 
+@app.route('/getAnswer1')
+def getOne():
+	
+
 @app.route('/test')
 def test_get(): 
 	try:
@@ -21,9 +25,24 @@ def test_get():
 
 @app.route('/add-response', methods=["POST"])
 def add_response():
-	data = request.data
-	print(data)
-	return "WOW!"
+	try:
+		surveyID = request.json["surveyID"]
+		q1 = request.json["q1"]
+		q2 = request.json["q2"]
+		comment = request.json["comment"]
+		timestamp = request.json["timestamp"]
+
+		if (not q1 or not q2 or not timestamp or not surveyID):
+			return {"error": "one or more attributes missing"}
+
+		response = {
+			"q1": q1,
+			"q2": q2,
+			"comment": comment,
+			"timestamp": timestamp,
+		}
+		response_ref = survey_ref.document(surveyID).collection('reponses').set(response)
+        return jsonify({"success": True}), 200
 
 # @app.route('/')
 
