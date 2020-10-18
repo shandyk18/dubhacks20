@@ -26,6 +26,8 @@ def getOne(surveyId):
 		"no": 0
 	}
 
+	print(surveyId);
+
 	docs = survey_ref.document(surveyId).collection('responses').stream()
 	for doc in docs:
 		res = doc.to_dict()
