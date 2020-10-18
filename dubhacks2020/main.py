@@ -50,11 +50,20 @@ def getTwo():
 		"4" : 0,
 		"5" : 0
 	}
-
+	index = 0
 	docs = survey_ref.document('123').collection('responses').stream()
-	
 	for doc in docs:
 		res = doc.to_dict()
+		if (res["q2"] == 1):
+			result["1"] += 1
+		elif (res["q2"] == 2):
+			result["2"] += 1
+		elif (res["q2"] == 3):
+			result["3"] += 1
+		elif (res["q2"] == 4):
+			result["4"] += 1
+		else:
+			result["5"] += 1
 		
 	return jsonify(result), 200
 

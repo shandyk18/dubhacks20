@@ -9,7 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TopBar from '../TopBar';
 import axios from 'axios';
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,7 +24,30 @@ function ResultsPage() {
     const [department, setDepartment] = useState();
     const [instructor, setInstructor] = useState();
     const [course, setCourse] = useState();
-    const [q1, setQ1] = useState();
+    const [q1, setQ1] = useState([]);
+
+    const data = [
+        {
+            "name": "1",
+            "inclusivity rating": q1[0],
+        },
+        {
+            "name": "2",
+            "inclusivity rating": q1[1],
+        },
+        {
+            "name": "3",
+            "inclusivity rating": q1[2],
+        },
+        {
+            "name": "4",
+            "inclusivity rating": q1[3],
+        },
+        {
+            "name": "5",
+            "inclusivity rating": q1[4],
+        },
+    ]
 
     const handleChangeDepartment = (event) => {
         setDepartment(event.target.value);
@@ -37,17 +61,13 @@ function ResultsPage() {
         setCourse(event.target.value);
     }
 
-    useEffect({
-        setSurveyId();
-    }, []);
-
-    axios.get('/getAnswer1', {
+    axios.get('http://localhost:5000/getAnswer2', {
         params: {
             ID: surveyId
         }
     })
     .then(function (response) {
-        console.log(response);
+        setQ1([response.data['1'], response.data['2'], response.data['3'], response.data['4'], response.data['5']])
     })
 
     return (
@@ -55,16 +75,16 @@ function ResultsPage() {
             <TopBar />
             <Box m={10}>
                 <div className={classes.root}>
-                    <Grid container spacing={4}>
-                        <Grid item xs>
+                    <Grid container spacing={2}>
+                        <Grid item md={4}>
                             <Typography variant='h3'>
                                 Filters
-                        </Typography>
+                            </Typography>
                             <br />
                             <FormControl className={classes.formControl}>
                                 <Typography variant='h5'>
                                     Department
-                            </Typography>
+                                </Typography>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -77,7 +97,7 @@ function ResultsPage() {
                                 <br />
                                 <Typography variant='h5'>
                                     Instructor
-                            </Typography>
+                                </Typography>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -92,7 +112,7 @@ function ResultsPage() {
                                 <br />
                                 <Typography variant='h5'>
                                     Course
-                            </Typography>
+                                </Typography>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -108,14 +128,23 @@ function ResultsPage() {
                                     onClick={() => { console.log('submitted'); }}
                                 >
                                     Submit
-                            </Button>
+                                </Button>
                             </FormControl>
                             <br />
                         </Grid>
-                        <Grid item xs={8}>
-                            <Typography variant='h5'>
-                                {q1}
+                        <Grid item md={8}>
+                            <Typography variant='h4'>
+                                Overall Feelings of Class's Inclusivity Policies
                             </Typography>
+                            <br />
+                            <BarChart width={730} height={250} data={data}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="inclusivity rating" fill="#82ca9d" />
+                            </BarChart>
                         </Grid>
                     </Grid>
                 </div>
