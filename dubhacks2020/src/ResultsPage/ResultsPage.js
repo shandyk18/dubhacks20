@@ -29,6 +29,7 @@ function ResultsPage() {
     const [q1, setQ1] = useState([]);
     const [q2, setQ2] = useState([]);
     const [comments, setComments] = useState([]);
+	const [data1, setData1] = useState([]);
     const COLORS = ['#f55656', '#00C49F'];
 
     const RADIAN = Math.PI / 180;
@@ -46,17 +47,6 @@ function ResultsPage() {
         );
     };
 
-
-    const data1 = [
-        {
-            "name": "Yes",
-            "response": q1[0],
-        },
-        {
-            "name": "No",
-            "response": q1[1],
-        },
-    ]
 
     const data2 = [
         {
@@ -83,15 +73,64 @@ function ResultsPage() {
 
     const handleChangeDepartment = (event) => {
         setDepartment(event.target.value);
+		changeFilter("department", event.target.value);
     };
 
     const handleChangeInstructor = (event) => {
         setInstructor(event.target.value);
+		changeFilter("instructor", event.target.value);
     }
 
     const handleChangeCourse = (event) => {
         setCourse(event.target.value);
+		changeFilter("course", event.target.value);
     }
+
+	const changeFilter = (filter, value) => {
+		console.log("WHEN THIS GETS CHANGED, FKN CHANGE");
+		axios.get(`/getAnswer1/${surveyId}`, {
+			params: {
+				filter: filter,
+				value: value
+			}
+		})
+		.then(function (response) {
+			setQ1([response.data['yes'], response.data['no']])
+		})
+
+   	    axios.get(`/getAnswer2/${surveyId}`, {
+            params: {
+				filter: filter,
+				value: value
+            }
+        })
+        .then(function (response) {
+            setQ2([response.data['1'], response.data['2'], response.data['3'], response.data['4'], response.data['5']])
+        })
+
+        axios.get(`/comments/${surveyId}`, {
+            params: {
+				filter: filter,
+				value: value
+            }
+        })
+        .then(function (response) {
+            setComments([response.data['0'], response.data['1'], response.data['2'], response.data['3'], response.data['4']])
+        })
+    }
+
+    useEffect(() => {
+		setData1([
+			{
+            	"name" : "Yes",
+				"response" : q1[0]
+			},
+			{
+				"name" : "No",
+				"response" : q1[1]
+			}
+		]);
+	}, [department, instructor, course, q1])
 
     useEffect(() => {
         axios.get(`/getAnswer1/${surveyId}`, {
@@ -157,10 +196,9 @@ function ResultsPage() {
                                     value={instructor}
                                     onChange={handleChangeInstructor}
                                 >
-                                    <MenuItem value={123}>Julia Kim</MenuItem>
-                                    <MenuItem value={456}>Jeremy Chen</MenuItem>
-                                    <MenuItem value={789}>Eric Yeh</MenuItem>
-                                    <MenuItem value={111}>Jonathan Chen</MenuItem>
+									<MenuItem value="person1">John Doe</MenuItem>
+									<MenuItem value="person2">Alice Smith</MenuItem>
+									<MenuItem value="person3">Kulia Kim</MenuItem>
                                 </Select>
                                 <br />
                                 <Typography variant='h5'>
@@ -172,8 +210,9 @@ function ResultsPage() {
                                     value={course}
                                     onChange={handleChangeCourse}
                                 >
-                                    <MenuItem value={'CSE 461'}>CSE 461</MenuItem>
-                                    <MenuItem value={'CSE 451'}>CSE 451</MenuItem>
+                                    <MenuItem value={'cse143'}>CSE 143</MenuItem>
+                                    <MenuItem value={'cse344'}>CSE 344</MenuItem>
+									<MenuItem value={'cse461'}>CSE 461</MenuItem>
                                 </Select>
                                 <br />
                                 <Button
