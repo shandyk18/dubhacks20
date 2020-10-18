@@ -49,7 +49,8 @@ class SurveyPage extends React.Component {
             q2: this.state.answer2,
             comment: this.state.comments
         }
-        axios.post('/add-response',
+        console.log("hello");
+        axios.post('http://localhost:5000/add-response',
             data,
             { headers: { 'Content-Type': 'application/json' } }
         ).then((response) => {
