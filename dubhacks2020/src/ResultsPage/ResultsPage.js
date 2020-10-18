@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
 
 function ResultsPage() {
     const classes = useStyles();
-    var url = window.location.href;    var surveyId = url.substr(url.lastIndexOf('/') + 1);
+    var url = window.location.href;
+    var surveyId = url.substr(url.lastIndexOf('/') + 1);
     const [department, setDepartment] = useState();
     const [instructor, setInstructor] = useState();
     const [course, setCourse] = useState();
@@ -74,7 +75,7 @@ function ResultsPage() {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/getAnswer1/${surveyId}`, {
+        axios.get(`/getAnswer1/${surveyId}`, {
             params: {
                 surveyId: surveyId
             }
@@ -93,18 +94,14 @@ function ResultsPage() {
             setQ2([response.data['1'], response.data['2'], response.data['3'], response.data['4'], response.data['5']])
         })
 
-/*        axios.get(`http://localhost:5000/comments/${surveyId}`, {
+        axios.get(`/getAnswer2/${surveyId}`, {
             params: {
                 surveyId: surveyId
             }
         })
         .then(function (response) {
-            JSON.response.forEach(el => {
-                console.log(el);
-            });
-            //setComments([response.data])
-            //console.log(comments)
-        })*/
+            setQ2([response.data['1'], response.data['2'], response.data['3'], response.data['4'], response.data['5']])
+        })
     }, []);
 
     return (

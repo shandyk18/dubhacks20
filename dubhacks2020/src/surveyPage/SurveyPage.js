@@ -9,9 +9,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Top from '../TopBar';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 
-class SurveyPage extends React.Component {
+class SurveyPage extends React.Component {    
     constructor(props) {
         super(props);
         var today = new Date();
@@ -49,7 +50,7 @@ class SurveyPage extends React.Component {
             q2: this.state.answer2,
             comments: this.state.comments
         }
-        axios.post('http://localhost:5000/add-response',
+        axios.post('/add-response',
             data,
             { headers: { 'Content-Type': 'application/json' } }
         ).then((response) => {
@@ -57,7 +58,7 @@ class SurveyPage extends React.Component {
         }, (error) => {
             console.log(error);
         });
-        alert("response received!");
+        alert("submitted");
     }
 
     render() {
