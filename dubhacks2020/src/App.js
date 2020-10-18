@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SurveyPage from './surveyPage/SurveyPage';
+import Home from "./HomePage/Home";
+import ResultsPage from "./ResultsPage/ResultsPage";
 
 import {
     BrowserRouter as Router,
@@ -9,8 +11,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import Home from "./HomePage/Home";
-import ResultsPage from "./ResultsPage/ResultsPage";
+
 
 function App() {
   return (
