@@ -13,12 +13,25 @@ export function Home() {
     const [validId, setValidId] = useState(true);
     const history = useHistory();
 
+    const recentSurveys = ["ericyeh", "juliak", "jeremychen", "jonachen", "shandyk"];
 
+    function renderRecentSurveys() {
+        var list = [];
+        recentSurveys.forEach(surveyId => {
+            list.push(
+                <Button className="recent-survey" variant="contained" text="wow" key={surveyId} onClick={() =>history.push(`/${surveyId}`)}>
+                    <b>inclusurvey.com/</b><p>&nbsp;&nbsp;{surveyId}</p>
+                </Button>
+            )
+        });
+        return list;
+    }
+    
     async function onSubmit() {
         // Make API call here to check if surveyId is valid.
         if (surveyId) {
-            const test = await axios.get(`http://localhost:5000/surveyId/${surveyId}`);
-            if (test.data) {
+            const surveyExists = await axios.get(`http://localhost:5000/surveyId/${surveyId}`);
+            if (surveyExists.data) {
                 history.push(`/${surveyId}`);
             } else {
                 setValidId(false);
@@ -61,21 +74,7 @@ export function Home() {
                 <Grid container item xs={5} />
                 <Grid className="recent-surveys" container item xs={2} >
                     <h3>Recent surveys</h3>
-                    <Button className="recent-survey" variant="contained">
-                        <b>inclusurvey.com/</b><p>&nbsp;&nbsp;ericyeh</p>
-                    </Button>
-                    <Button className="recent-survey" variant="contained">
-                        <b>inclusurvey.com/</b><p>&nbsp;&nbsp;juliak</p>
-                    </Button>
-                    <Button className="recent-survey" variant="contained">
-                        <b>inclusurvey.com/</b><p>&nbsp;&nbsp;jeremychen</p>
-                    </Button>
-                    <Button className="recent-survey" variant="contained">
-                        <b>inclusurvey.com/</b><p>&nbsp;&nbsp;jonachen</p>
-                    </Button>
-                    <Button className="recent-survey" variant="contained">
-                        <b>inclusurvey.com/</b><p>&nbsp;&nbsp;shandyk</p>
-                    </Button>
+                    {renderRecentSurveys()}
                 </Grid>
                 <Grid container item xs={5} />
             </Grid>
