@@ -3,11 +3,13 @@ import './Home.css';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import TopBar from '../TopBar';
 
 class Home extends Component {
     render() {
         return (
             <div className="Home">
+                <TopBar />
                 <Grid className="centered-box" container alignItems="center" justify="center" >
                     <Grid container item xs={5} />
                     <Grid className="enter-survey-box" container item xs={2} >
@@ -18,7 +20,7 @@ class Home extends Component {
                             type="surveyId"
                             variant="outlined">
                         </TextField>
-                        <Button variant="contained" color="primary">
+                        <Button className="submit-button" variant="contained" color="primary">
                             Join
                         </Button>
                     </Grid>

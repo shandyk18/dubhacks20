@@ -6,6 +6,7 @@
 
 .centered-box {
     margin-top: 25vh;
+    text-align: center;
 }
 
 #survey-id-input {
@@ -13,6 +14,7 @@
     background-color: white;
 }
 
-button {
+.submit-button {
+    margin-top: 20px !important;
     width: 300px;
 }
